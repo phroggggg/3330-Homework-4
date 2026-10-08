@@ -46,7 +46,7 @@ async function load(){
         getJSON(`${BASE_URL}/games/${gameID}/similar?limit=4&api-key=${apiKey}`)
     ]);
  
-    // ---- 1. Hero section ----
+    // ---- Hero section ----
     document.querySelector("#game-name").textContent = game.name;
     document.querySelector(".game-image img").src = game.image;
     document.querySelector(".game-image img").alt = `${game.name} artwork`;
@@ -54,7 +54,21 @@ async function load(){
     document.querySelector(".game-meta").textContent =
         `${game.developer} • ${formatYearFromStr(game.release_date)}`;
 
-    
+    // ---- Game News ----
+    const newsCards = document.querySelectorAll(".news-card");
+    const news = (newsData.news || []).slice(0, 3);
+    newsCards.forEach((card, i) => {
+        const item = news[i];
+        if (!item) {
+            card.style.display = "none";
+            return;
+        }
+        card.style.display = "";
+        card.querySelector("img").src = item.image;
+        card.querySelector("img").alt = item.title;
+        card.querySelector("h3").textContent = item.title;
+        card.querySelector(".news-published").textContent = `Published ${item.published}`;
+    });
 
 
 
