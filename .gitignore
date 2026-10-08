@@ -1,0 +1,13 @@
+# macOS junk
+.DS_Store
+__MACOSX/
+._*
+ 
+# Editor / OS files
+.vscode/
+.idea/
+Thumbs.db
+ 
+# Secrets
+.env
+ 
