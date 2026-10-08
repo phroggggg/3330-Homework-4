@@ -70,7 +70,24 @@ async function load(){
         card.querySelector(".news-published").textContent = `Published ${item.published}`;
     });
 
-
+    // ---- Similar Games ----
+    const gameCards = document.querySelectorAll(".game-card");
+    const similar = (similarData.results || []).slice(0, 4);
+    gameCards.forEach((card, i) => {
+        const item = similar[i];
+        if (!item) {
+            card.style.display = "none";
+            return;
+        }
+        card.style.display = "";
+        const img = card.querySelector("img");
+        img.src = (item.screenshots && item.screenshots[0]) || item.image;  // only one image
+        img.alt = `${item.name} screenshot`;
+        card.querySelector("h3").textContent = item.name;
+        const spans = card.querySelectorAll(".game-card-meta span");
+        spans[0].textContent = Math.floor(item.year);
+        spans[1].textContent = formatPercentage(item.rating.mean);
+    });
 
 
 }
